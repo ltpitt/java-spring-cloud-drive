@@ -79,13 +79,16 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
+                        <tr th:each="note : ${notes}">
                             <td>
-                                <button class="btn btn-success" type="button">Edit</button>
-                                <a class="btn btn-danger">Delete</a>
+                                <button class="btn btn-success"
+                                        th:onclick="showNoteModal([[${note.noteid}]], [[${note.notetitle}]], [[${note.notedescription}]])"
+                                        type="button">Edit
+                                </button>
+                                <a class="btn btn-danger" th:href="@{/notes/delete(id=${note.noteid})}">Delete</a>
                             </td>
-                            <th scope="row">Example Note Title</th>
-                            <td>Example Note Description</td>
+                            <th scope="row" th:text="${note.notetitle}">Example Note Title</th>
+                            <td th:text="${note.notedescription}">Example Note Description</td>
                         </tr>
                         </tbody>
                     </table>
@@ -102,20 +105,38 @@
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <form action="#" method="POST">
-                                    <input id="note-id" name="noteId" type="hidden">
+                                <!--                                Why is this not working?                                                -->
+                                <!--                                <form action="#" method="POST" th:action="@{/note}" th:object="${note}">-->
+                                <!--                                    <input id="note-id" name="noteId" type="hidden">-->
+                                <!--                                    <div class="form-group">-->
+                                <!--                                        <label class="col-form-label" for="note-title">Title</label>-->
+                                <!--                                        <input class="form-control" id="note-title" maxlength="20" name="noteTitle"-->
+                                <!--                                               required type="text">-->
+                                <!--                                    </div>-->
+                                <!--                                    <div class="form-group">-->
+                                <!--                                        <label class="col-form-label" for="note-description">Description</label>-->
+                                <!--                                        <textarea class="form-control" id="note-description" maxlength="1000"-->
+                                <!--                                                  name="noteDescription" required rows="5" th:value="*{notedescription}"></textarea>-->
+                                <!--                                    </div>-->
+                                <!--                                    <button class="d-none" id="noteSubmit" type="submit"></button>-->
+                                <!--                                </form>-->
+
+                                <form method="POST" th:action="@{/notes}">
+                                    <input id="note-id" name="noteid" type="hidden">
                                     <div class="form-group">
                                         <label class="col-form-label" for="note-title">Title</label>
-                                        <input class="form-control" id="note-title" maxlength="20" name="noteTitle"
+                                        <input class="form-control" id="note-title" maxlength="20" name="notetitle"
                                                required type="text">
                                     </div>
                                     <div class="form-group">
                                         <label class="col-form-label" for="note-description">Description</label>
                                         <textarea class="form-control" id="note-description" maxlength="1000"
-                                                  name="noteDescription" required rows="5"></textarea>
+                                                  name="notedescription" required rows="5"></textarea>
                                     </div>
                                     <button class="d-none" id="noteSubmit" type="submit"></button>
                                 </form>
+
+
                             </div>
                             <div class="modal-footer">
                                 <button class="btn btn-secondary" data-dismiss="modal" type="button">Close</button>
