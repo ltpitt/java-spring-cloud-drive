@@ -18,16 +18,16 @@
     <div id="contentDiv" style="clear: right;">
         <nav style="clear: right;">
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                <a aria-controls="nav-files" aria-selected="true" class="nav-item nav-link active" data-toggle="tab"
+                <a aria-controls="nav-files" aria-selected="true" class="nav-item nav-link" data-toggle="tab"
                    href="#nav-files" id="nav-files-tab" role="tab">Files</a>
                 <a aria-controls="nav-notes" aria-selected="false" class="nav-item nav-link" data-toggle="tab"
                    href="#nav-notes" id="nav-notes-tab" role="tab">Notes</a>
-                <a aria-controls="nav-credentials" aria-selected="false" class="nav-item nav-link" data-toggle="tab"
-                   href="#nav-credentials" id="nav-credentials-tab" role="tab">Credentials</a>
+                <a aria-controls="nav-credential" aria-selected="false" class="nav-item nav-link" data-toggle="tab"
+                   href="#nav-credential" id="nav-credential-tab" role="tab">Credentials</a>
             </div>
         </nav>
         <div class="tab-content" id="nav-tabContent">
-            <div aria-labelledby="nav-files-tab" class="tab-pane fade show active" id="nav-files" role="tabpanel">
+            <div aria-labelledby="nav-files-tab" class="tab-pane fade" id="nav-files" role="tabpanel">
                 <form action="#" enctype="multipart/form-data" method="POST">
                     <div class="container">
                         <div class="row" style="margin: 1em;">
@@ -70,7 +70,7 @@
                 </button>
 
                 <div class="table-responsive">
-                    <table class="table table-striped" id="userTable">
+                    <table class="table table-striped" id="noteTable">
                         <thead>
                         <tr>
                             <th scope="col" style="width: 20%"></th>
@@ -148,14 +148,14 @@
                     </div>
                 </div>
             </div>
-            <div aria-labelledby="nav-credentials-tab" class="tab-pane fade" id="nav-credentials" role="tabpanel">
+            <div aria-labelledby="nav-credential-tab" class="tab-pane fade" id="nav-credential" role="tabpanel">
                 <button class="btn btn-info float-right" onclick="showCredentialModal()" style="margin: 0.25em;"
                         type="button">
                     + Add a New Credential
                 </button>
 
                 <div class="table-responsive">
-                    <table class="table table-striped" id="credentialTable" th:object="${credentials}">
+                    <table class="table table-striped" id="credentialTable">
                         <thead>
                         <tr>
                             <th scope="col" style="width: 20%"></th>
@@ -165,14 +165,18 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
+                        <tr th:each="credential : ${credentials}">
                             <td>
-                                <button class="btn btn-success" type="button">Edit</button>
-                                <a class="btn btn-danger">Delete</a>
+                                <button class="btn btn-success"
+                                        th:onclick="showCredentialModal([[${credential.credentialid}]], [[${credential.url}]], [[${credential.username}]], [[${credential.password}]])"
+                                        type="button">Edit
+                                </button>
+                                <a class="btn btn-danger"
+                                   th:href="@{/credential/delete(id=${credential.credentialid})}">Delete</a>
                             </td>
-                            <th scope="row">Example Credential URL</th>
-                            <td>Example Credential Username</td>
-                            <td>Example Credential Password</td>
+                            <th scope="row" th:text="${credential.url}">Example Credential URL</th>
+                            <td th:text="${credential.username}">Example Credential Username</td>
+                            <td th:text="${credential.password}">Example Credential Password</td>
                         </tr>
                         </tbody>
                     </table>
@@ -189,8 +193,8 @@
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <form action="#" method="POST">
-                                    <input id="credential-id" name="credentialId" type="hidden">
+                                <form method="POST" th:action="@{/credential}">
+                                    <input id="credential-id" name="credentialid" type="hidden">
                                     <div class="form-group">
                                         <label class="col-form-label" for="note-title">URL</label>
                                         <input class="form-control" id="credential-url" maxlength="100" name="url"
@@ -243,7 +247,7 @@
                 $('#noteModal').modal('show');
             }
 
-            // For opening the credentials modal
+            // For opening the credential modal
             function showCredentialModal(credentialId, url, username, password) {
                 $('#credential-id').val(credentialId ? credentialId : '');
                 $('#credential-url').val(url ? url : '');
