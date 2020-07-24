@@ -1,6 +1,8 @@
 package it.davidenastri.clouddrive.controller;
 
 import it.davidenastri.clouddrive.model.Note;
+import it.davidenastri.clouddrive.services.CredentialService;
+import it.davidenastri.clouddrive.services.FileService;
 import it.davidenastri.clouddrive.services.NoteService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,28 +18,33 @@ import java.util.Optional;
 @Controller
 public class NoteController {
 
-    private final NoteService noteService;
     Logger logger = LoggerFactory.getLogger(NoteController.class);
 
-    public NoteController(NoteService noteService) {
+    private final CredentialService credentialService;
+    private final NoteService noteService;
+    private final FileService fileService;
+
+    public NoteController(CredentialService credentialService, NoteService noteService, FileService fileService) {
+        this.credentialService = credentialService;
         this.noteService = noteService;
+        this.fileService = fileService;
     }
 
     @PostMapping("/notes")
-    public String createOrUpdateNote(Note note, Principal principal, Model model) {
+    public String createOrUpdate(Note note, Principal principal, Model model) {
 
         String createNoteError = null;
 
         Optional<Integer> noteidOptional = Optional.ofNullable(note.getNoteid());
 
         if (noteidOptional.isPresent()) {
-            noteService.updateNote(note, principal.getName());
-            int rowsEdited = noteService.updateNote(note, principal.getName());
+            noteService.update(note, principal.getName());
+            int rowsEdited = noteService.update(note, principal.getName());
             if (rowsEdited < 0) {
                 createNoteError = "There was an error editing your note. Please try again.";
             }
         } else {
-            int rowsAdded = noteService.createNote(note, principal.getName());
+            int rowsAdded = noteService.create(note, principal.getName());
             if (rowsAdded < 0) {
                 createNoteError = "There was an error creating your note. Please try again.";
             }
@@ -47,17 +54,21 @@ public class NoteController {
         } else {
             model.addAttribute("signupError", createNoteError);
         }
-        model.addAttribute("notes", noteService.getAllNotes(principal.getName()));
+        model.addAttribute("files", credentialService.getAll(principal.getName()));
+        model.addAttribute("notes", noteService.getAll(principal.getName()));
+        model.addAttribute("credentials", credentialService.getAll(principal.getName()));
         model.addAttribute("activeTab", "notes");
         return "home";
     }
 
     @GetMapping("/notes/delete")
-    public String deleteNote(@RequestParam("id") int noteid, Model model, Principal principal) {
+    public String delete(@RequestParam("id") int noteid, Model model, Principal principal) {
         if (noteid > 0) {
-            noteService.deleteNote(noteid);
+            noteService.delete(noteid);
         }
-        model.addAttribute("notes", noteService.getAllNotes(principal.getName()));
+        model.addAttribute("files", credentialService.getAll(principal.getName()));
+        model.addAttribute("notes", noteService.getAll(principal.getName()));
+        model.addAttribute("credentials", credentialService.getAll(principal.getName()));
         model.addAttribute("activeTab", "notes");
         return "home";
     }

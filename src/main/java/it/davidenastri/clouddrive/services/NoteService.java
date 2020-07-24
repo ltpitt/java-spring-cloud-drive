@@ -18,24 +18,24 @@ public class NoteService {
         this.noteMapper = noteMapper;
     }
 
-    public int createNote(Note note, String username) {
-        return noteMapper.insert(new Note(null, note.getNotetitle(), note.getNotedescription(), userMapper.getUser(username).getUserId()));
+    public int create(Note note, String username) {
+        return noteMapper.create(new Note(null, note.getNotetitle(), note.getNotedescription(), userMapper.getUser(username).getUserId()));
     }
 
-    public int updateNote(Note note, String username) {
+    public int update(Note note, String username) {
         return noteMapper.update(new Note(note.getNoteid(), note.getNotetitle(), note.getNotedescription(), userMapper.getUser(username).getUserId()));
     }
 
-    public Note getNote(int noteid, String username) {
-        return noteMapper.getNote(noteid, userMapper.getUser(username).getUserId());
+    public Note get(int noteid, String username) {
+        return noteMapper.get(noteid, userMapper.getUser(username).getUserId());
     }
 
-    public List<Note> getAllNotes(String username) {
-        return noteMapper.getAllNotes(userMapper.getUser(username).getUserId());
+    public List<Note> getAll(String username) {
+        return noteMapper.getAll(userMapper.getUser(username).getUserId());
     }
 
-    public int deleteNote(int noteid) {
-        return noteMapper.deleteNote(noteid);
+    public int delete(int noteid) {
+        return noteMapper.delete(noteid);
     }
 
 }
