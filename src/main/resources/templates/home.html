@@ -15,6 +15,7 @@
             <button class="btn btn-secondary float-right" type="submit">Logout</button>
         </form>
     </div>
+    <h1>[[${activeTab}]]</h1>
     <div id="contentDiv" style="clear: right;">
         <nav style="clear: right;">
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
@@ -227,6 +228,12 @@
 <script th:src="@{/js/popper.min.js}"></script>
 <script th:src="@{/js/bootstrap.min.js}"></script>
 
+<script th:inline="javascript">
+    var activeTab = [[${activeTab}]];
+    $("#nav-" + activeTab + "-tab").click();
+
+</script>
+
 <!--For opening the note modal-->
 <script type="text/javascript">
             // For opening the note modal
@@ -245,8 +252,6 @@
                 $('#credential-password').val(password ? password : '');
                 $('#credentialModal').modal('show');
             }
-
-
 </script>
 </body>
 </html>

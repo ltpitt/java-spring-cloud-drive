@@ -21,6 +21,7 @@ public class HomeController {
     @GetMapping()
     public String loginView(Model model, Principal principal) {
         model.addAttribute("notes", this.noteService.getAllNotes(principal.getName()));
+        model.addAttribute("activeTab", "files");
         return "home";
     }
 

@@ -48,6 +48,7 @@ public class NoteController {
             model.addAttribute("signupError", createNoteError);
         }
         model.addAttribute("notes", noteService.getAllNotes(principal.getName()));
+        model.addAttribute("activeTab", "notes");
         return "home";
     }
 
@@ -57,6 +58,7 @@ public class NoteController {
             noteService.deleteNote(noteid);
         }
         model.addAttribute("notes", noteService.getAllNotes(principal.getName()));
+        model.addAttribute("activeTab", "notes");
         return "home";
     }
 
