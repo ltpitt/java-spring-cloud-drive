@@ -32,7 +32,7 @@ public class CredentialController {
     @PostMapping("/credential")
     public String createOrUpdate(Credential credential, Principal principal, Model model) {
 
-        String createCredentialError = null;
+        String createOrUpdateError = null;
 
         Optional<Integer> credentialidOptional = Optional.ofNullable(credential.getCredentialid());
 
@@ -41,20 +41,20 @@ public class CredentialController {
             credentialService.update(credential, principal.getName());
             int rowsEdited = credentialService.update(credential, principal.getName());
             if (rowsEdited < 0) {
-                createCredentialError = "There was an error editing your credential. Please try again.";
+                createOrUpdateError = "There was an error editing your credential. Please try again.";
             }
         } else {
             int rowsAdded = credentialService.create(credential, principal.getName());
             if (rowsAdded < 0) {
-                createCredentialError = "There was an error creating your credential. Please try again.";
+                createOrUpdateError = "There was an error creating your credential. Please try again.";
             }
         }
-        if (createCredentialError == null) {
+        if (createOrUpdateError == null) {
             model.addAttribute("signupSuccess", true);
         } else {
-            model.addAttribute("signupError", createCredentialError);
+            model.addAttribute("signupError", createOrUpdateError);
         }
-        model.addAttribute("files", credentialService.getAll(principal.getName()));
+        model.addAttribute("files", fileService.getAll(principal.getName()));
         model.addAttribute("notes", noteService.getAll(principal.getName()));
         model.addAttribute("credentials", credentialService.getAll(principal.getName()));
         model.addAttribute("activeTab", "credential");
@@ -66,7 +66,7 @@ public class CredentialController {
         if (credentialid > 0) {
             credentialService.delete(credentialid);
         }
-        model.addAttribute("files", credentialService.getAll(principal.getName()));
+        model.addAttribute("files", fileService.getAll(principal.getName()));
         model.addAttribute("notes", noteService.getAll(principal.getName()));
         model.addAttribute("credentials", credentialService.getAll(principal.getName()));
         model.addAttribute("activeTab", "credential");
