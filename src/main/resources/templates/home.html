@@ -28,7 +28,7 @@
         </nav>
         <div class="tab-content" id="nav-tabContent">
             <div aria-labelledby="nav-files-tab" class="tab-pane fade" id="nav-files" role="tabpanel">
-                <form action="#" enctype="multipart/form-data" method="POST">
+                <form enctype="multipart/form-data" method="POST" th:action="@{/files/create}">
                     <div class="container">
                         <div class="row" style="margin: 1em;">
                             <div class="col-sm-2">
@@ -52,15 +52,23 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
+                        <tr th:each="file : ${files}">
                             <td>
-                                <a class="btn btn-success" target="_blank">View</a>
-                                <a class="btn btn-danger">Delete</a>
+                                <a class="btn btn-success" target="_blank"
+                                   th:href="@{/files/get(id=${file.fileid})}" type="button">Download
+                                </a>
+                                <a class="btn btn-danger" th:href="@{/files/delete(id=${file.fileid})}">Delete</a>
                             </td>
-                            <th scope="row">ExampleFile.txt</th>
+                            <th scope="row" th:text="${file.filename}">ExampleFile.txt</th>
                         </tr>
                         </tbody>
                     </table>
+                </div>
+                <div class="alert alert-success" id="success-msg" th:if="${fileSuccess}">
+                    File uploaded successfully!
+                </div>
+                <div class="alert alert-danger" id="error-msg" th:if="${fileError}">
+                    <span th:text="${fileError}"></span>
                 </div>
             </div>
             <div aria-labelledby="nav-notes-tab" class="tab-pane fade" id="nav-notes" role="tabpanel">
