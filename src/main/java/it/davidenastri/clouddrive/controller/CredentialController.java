@@ -11,8 +11,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.security.Principal;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 @Controller
@@ -38,7 +41,8 @@ public class CredentialController {
 
         if (credentialidOptional.isPresent()) {
             logger.info("Credential already existing");
-            credentialService.update(credential, principal.getName());
+            logger.info("Credential already existing Password: " + credential.getPassword());
+            logger.info("Credential already existing Key: " + credential.getKey());
             int rowsEdited = credentialService.update(credential, principal.getName());
             if (rowsEdited < 0) {
                 createOrUpdateError = "There was an error editing your credential. Please try again.";
@@ -73,5 +77,14 @@ public class CredentialController {
         return "home";
     }
 
+    @GetMapping("/credential/decrypt")
+    @ResponseBody
+    public Map<String, String> decryptPassword(@RequestParam("id") int credentialid, Principal principal) {
+        Map<String, String> response = new HashMap<>();
+        if (credentialid > 0) {
+            response.put("decryptedPassword", credentialService.decryptPassword(credentialService.get(credentialid, principal.getName())).getPassword());
+        }
+        return response;
+    }
 
 }

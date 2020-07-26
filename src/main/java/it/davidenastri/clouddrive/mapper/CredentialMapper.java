@@ -14,7 +14,7 @@ public interface CredentialMapper {
     int create(Credential credential);
 
     @Select("SELECT * FROM CREDENTIALS WHERE credentialid = #{credentialid} AND userid = #{userid}")
-    Credential get(Integer noteid, Integer userid);
+    Credential get(Integer credentialid, Integer userid);
 
     @Select("SELECT * FROM CREDENTIALS WHERE userid = #{userid}")
     List<Credential> getAll(Integer userid);
