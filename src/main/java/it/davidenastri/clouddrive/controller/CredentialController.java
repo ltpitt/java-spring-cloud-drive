@@ -40,9 +40,6 @@ public class CredentialController {
         Optional<Integer> credentialidOptional = Optional.ofNullable(credential.getCredentialid());
 
         if (credentialidOptional.isPresent()) {
-            logger.info("Credential already existing");
-            logger.info("Credential already existing Password: " + credential.getPassword());
-            logger.info("Credential already existing Key: " + credential.getKey());
             int rowsEdited = credentialService.update(credential, principal.getName());
             if (rowsEdited < 0) {
                 createOrUpdateError = "There was an error editing your credential. Please try again.";
