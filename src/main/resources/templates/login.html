@@ -13,10 +13,13 @@
     <h1 class="display-5">Login</h1>
     <form action="#" method="POST" th:action="@{/login}">
         <div class="alert alert-danger" id="error-msg" th:if="${param.error}">
-            Invalid username or password
+            Invalid username or password.
         </div>
         <div class="alert alert-dark" id="logout-msg" th:if="${param.logout}">
-            You have been logged out
+            You have been logged out.
+        </div>
+        <div class="alert alert-success" id="signupSuccess" th:if="${signupSuccess}">
+            You successfully signed up! Please login.
         </div>
         <div class="form-group">
             <label for="inputUsername">Username</label>

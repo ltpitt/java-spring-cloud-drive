@@ -20,7 +20,12 @@ public class FileUploadExceptionAdvice {
         logger.info("FileUploadExceptionAdvice *******************");
         ModelAndView modelAndView = new ModelAndView("home");
         modelAndView.getModel().put("createOrUpdateError", "File too large!");
-        return modelAndView;
+        //return modelAndView;
+
+        ModelAndView mav = new ModelAndView();
+        mav.addObject("createOrUpdateError", "File too large!");
+        mav.setViewName("home");
+        return mav;
     }
 
 }

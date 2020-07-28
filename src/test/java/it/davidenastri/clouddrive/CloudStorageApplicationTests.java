@@ -213,8 +213,6 @@ class CloudStorageApplicationTests {
 		assertEquals(editedCredentialUsername, homePage.getFirstCredentialUsername(driver));
 		assertNotEquals(editedCredentialPassword, homePage.getFirstCredentialPassword(driver));
 		String clearTextPassword = homePage.getClearTextPassword(driver);
-		Thread.sleep(5000);
-		System.out.println(clearTextPassword);
 		assertEquals(editedCredentialPassword, clearTextPassword);
 
 	}
