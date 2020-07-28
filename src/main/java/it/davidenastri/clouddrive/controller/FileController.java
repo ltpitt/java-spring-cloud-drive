@@ -40,10 +40,16 @@ public class FileController {
     @PostMapping("/files/create")
     public String createOrUpdate(MultipartFile fileUpload, Principal principal, Model model) throws IOException {
 
+        logger.info("/files/create now running...");
+
         String createOrUpdateError = null;
 
+        if (fileUpload.getSize() > 10485760) {
+            createOrUpdateError = "File exceeds the maximum upload size of 10485760 (10 Mb). Please try with a smaller file.";
+        }
+
         if (fileUpload.isEmpty()) {
-            createOrUpdateError = "Please choose a file to upload fist.";
+            createOrUpdateError = "Please choose a file to upload first.";
         }
 
         boolean isFileNameExisting = fileService.getAll(principal.getName()).stream().anyMatch(file -> file.getFilename().equals(fileUpload.getOriginalFilename()));
