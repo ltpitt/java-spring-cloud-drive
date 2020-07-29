@@ -3,9 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
-
     <link media="all" rel="stylesheet" th:href="@{/css/bootstrap.min.css}" type="text/css">
-
     <title>Home</title>
 </head>
 <body class="p-3 mb-2 bg-light text-black">
@@ -64,10 +62,10 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="alert alert-success" id="success-msg" th:if="${fileSuccess}">
-                    File uploaded successfully!
+                <div class="alert alert-success" id="file-success-msg" th:if="${fileSuccess}">
+                    File uploaded successfully.
                 </div>
-                <div class="alert alert-danger" id="error-msg" th:if="${fileError}">
+                <div class="alert alert-danger" id="file-error-msg" th:if="${fileError}">
                     <span th:text="${fileError}"></span>
                 </div>
             </div>
@@ -76,7 +74,6 @@
                         id="add-new-note-button" type="button">
                     + Add a New Note
                 </button>
-
                 <div class="table-responsive">
                     <table class="table table-striped" id="noteTable">
                         <thead>
@@ -102,7 +99,12 @@
                         </tbody>
                     </table>
                 </div>
-
+                <div class="alert alert-success" id="note-success-msg" th:if="${noteSuccess}">
+                    <span th:text="${noteSuccess}"></span>
+                </div>
+                <div class="alert alert-danger" id="note-error-msg" th:if="${noteError}">
+                    <span th:text="${noteError}"></span>
+                </div>
                 <div aria-hidden="true" aria-labelledby="noteModalLabel" class="modal fade" id="noteModal" role="dialog"
                      tabindex="-1">
                     <div class="modal-dialog" role="document">
@@ -114,22 +116,6 @@
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <!--                                Why is this not working?                                                -->
-                                <!--                                <form action="#" method="POST" th:action="@{/note}" th:object="${note}">-->
-                                <!--                                    <input id="note-id" name="noteId" type="hidden">-->
-                                <!--                                    <div class="form-group">-->
-                                <!--                                        <label class="col-form-label" for="note-title">Title</label>-->
-                                <!--                                        <input class="form-control" id="note-title" maxlength="20" name="noteTitle"-->
-                                <!--                                               required type="text">-->
-                                <!--                                    </div>-->
-                                <!--                                    <div class="form-group">-->
-                                <!--                                        <label class="col-form-label" for="note-description">Description</label>-->
-                                <!--                                        <textarea class="form-control" id="note-description" maxlength="1000"-->
-                                <!--                                                  name="noteDescription" required rows="5" th:value="*{notedescription}"></textarea>-->
-                                <!--                                    </div>-->
-                                <!--                                    <button class="d-none" id="noteSubmit" type="submit"></button>-->
-                                <!--                                </form>-->
-
                                 <form method="POST" th:action="@{/notes}">
                                     <input id="note-id" name="noteid" type="hidden">
                                     <div class="form-group">
@@ -145,8 +131,6 @@
                                     </div>
                                     <button class="d-none" id="noteSubmit" type="submit"></button>
                                 </form>
-
-
                             </div>
                             <div class="modal-footer">
                                 <button class="btn btn-secondary" data-dismiss="modal" type="button">Close</button>
@@ -165,7 +149,6 @@
                         type="button">
                     + Add a New Credential
                 </button>
-
                 <div class="table-responsive">
                     <table class="table table-striped" id="credentialTable">
                         <thead>
@@ -198,7 +181,12 @@
                         </tbody>
                     </table>
                 </div>
-
+                <div class="alert alert-success" id="credential-success-msg" th:if="${credentialSuccess}">
+                    <span th:text="${credentialSuccess}"></span>
+                </div>
+                <div class="alert alert-danger" id="credential-error-msg" th:if="${credentialError}">
+                    <span th:text="${credentialError}"></span>
+                </div>
                 <div aria-hidden="true" aria-labelledby="credentialModalLabel" class="modal fade" id="credentialModal"
                      role="dialog" tabindex="-1">
                     <div class="modal-dialog" role="document">
@@ -244,51 +232,50 @@
         </div>
     </div>
 </div>
-
 <script th:src="@{/js/jquery-slim.min.js}"></script>
 <script th:src="@{/js/popper.min.js}"></script>
 <script th:src="@{/js/bootstrap.min.js}"></script>
-
 <script th:inline="javascript">
-    var activeTab = [[${activeTab}]];
-    $("#nav-" + activeTab + "-tab").click();
+            var activeTab = [[${activeTab}]];
+            $("#nav-" + activeTab + "-tab").click();
+
 
 </script>
-
 <!--For opening the note modal-->
 <script type="text/javascript">
-    // To decrypt password
-    async function fetchDecodedPassword(credentialid) {
-        let response = await fetch(`/credential/decrypt?id=${credentialid}`)
-        if (response.ok) {
-            let data = await response.json();
-            let result = JSON.parse(JSON.stringify(data));
-            return result.decryptedPassword;
-        } else {
-            alert(response.status);
-        }
-    }
+            // To decrypt password
+            async function fetchDecodedPassword(credentialid) {
+                let response = await fetch(`/credential/decrypt?id=${credentialid}`)
+                if (response.ok) {
+                    let data = await response.json();
+                    let result = JSON.parse(JSON.stringify(data));
+                    return result.decryptedPassword;
+                } else {
+                    alert(response.status);
+                }
+            }
 
-    // For opening the note modal
-    function showNoteModal(noteId, noteTitle, noteDescription) {
-        $('#note-id').val(noteId ? noteId : '');
-        $('#note-title').val(noteTitle ? noteTitle : '');
-        $('#note-description').val(noteDescription ? noteDescription : '');
-        $('#noteModal').modal('show');
-    }
+            // For opening the note modal
+            function showNoteModal(noteId, noteTitle, noteDescription) {
+                $('#note-id').val(noteId ? noteId : '');
+                $('#note-title').val(noteTitle ? noteTitle : '');
+                $('#note-description').val(noteDescription ? noteDescription : '');
+                $('#noteModal').modal('show');
+            }
 
-    // For opening the credential modal
-    async function showCredentialModal(credentialId, url, username, password) {
-        let decryptedPassword = ''
-        if(credentialId) {
-            decryptedPassword = await fetchDecodedPassword(credentialId);
-        }
-        $('#credential-id').val(credentialId ? credentialId : '');
-        $('#credential-url').val(url ? url : '');
-        $('#credential-username').val(username ? username : '');
-        $('#credential-password').val(decryptedPassword ? decryptedPassword : '');
-        $('#credentialModal').modal('show');
-    }
+            // For opening the credential modal
+            async function showCredentialModal(credentialId, url, username, password) {
+                let decryptedPassword = ''
+                if(credentialId) {
+                    decryptedPassword = await fetchDecodedPassword(credentialId);
+                }
+                $('#credential-id').val(credentialId ? credentialId : '');
+                $('#credential-url').val(url ? url : '');
+                $('#credential-username').val(username ? username : '');
+                $('#credential-password').val(decryptedPassword ? decryptedPassword : '');
+                $('#credentialModal').modal('show');
+            }
+
 </script>
 </body>
 </html>

@@ -34,6 +34,7 @@ public class NoteController {
     public String createOrUpdate(Note note, Principal principal, Model model) {
 
         String createOrUpdateError = null;
+        String createOrUpdateSuccess = null;
 
         Optional<Integer> noteidOptional = Optional.ofNullable(note.getNoteid());
 
@@ -42,36 +43,45 @@ public class NoteController {
             int rowsEdited = noteService.update(note, principal.getName());
             if (rowsEdited < 0) {
                 createOrUpdateError = "There was an error editing your note. Please try again.";
+            } else {
+                createOrUpdateSuccess = "Note edited successfully.";
             }
         } else {
             int rowsAdded = noteService.create(note, principal.getName());
             if (rowsAdded < 0) {
                 createOrUpdateError = "There was an error creating your note. Please try again.";
+            } else {
+                createOrUpdateSuccess = "Note created successfully.";
             }
         }
         if (createOrUpdateError == null) {
-            model.addAttribute("signupSuccess", true);
+            model.addAttribute("noteSuccess", createOrUpdateSuccess);
         } else {
-            model.addAttribute("signupError", createOrUpdateError);
+            model.addAttribute("noteError", createOrUpdateError);
         }
-        model.addAttribute("files", fileService.getAll(principal.getName()));
-        model.addAttribute("notes", noteService.getAll(principal.getName()));
-        model.addAttribute("credentials", credentialService.getAll(principal.getName()));
+        model = refreshModelAttributes(model, principal);
         model.addAttribute("activeTab", "notes");
         return "home";
     }
 
     @GetMapping("/notes/delete")
     public String delete(@RequestParam("id") int noteid, Model model, Principal principal) {
-        if (noteid > 0) {
-            noteService.delete(noteid);
+        int rowsDeleted = noteService.delete(noteid);
+        if (rowsDeleted > 0) {
+            model.addAttribute("noteSuccess", "Note deleted successfully.");
+        } else {
+            model.addAttribute("noteError", "There was an error deleting your note. Please try again.");
         }
-        model.addAttribute("files", fileService.getAll(principal.getName()));
-        model.addAttribute("notes", noteService.getAll(principal.getName()));
-        model.addAttribute("credentials", credentialService.getAll(principal.getName()));
+        model = refreshModelAttributes(model, principal);
         model.addAttribute("activeTab", "notes");
         return "home";
     }
 
+    public Model refreshModelAttributes(Model model, Principal principal) {
+        model.addAttribute("files", fileService.getAll(principal.getName()));
+        model.addAttribute("notes", noteService.getAll(principal.getName()));
+        model.addAttribute("credentials", credentialService.getAll(principal.getName()));
+        return model;
+    }
 
 }

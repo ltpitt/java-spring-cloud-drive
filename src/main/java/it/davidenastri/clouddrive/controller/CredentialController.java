@@ -21,10 +21,11 @@ import java.util.Optional;
 @Controller
 public class CredentialController {
 
+    Logger logger = LoggerFactory.getLogger(CredentialController.class);
+
     private final CredentialService credentialService;
     private final NoteService noteService;
     private final FileService fileService;
-    Logger logger = LoggerFactory.getLogger(CredentialController.class);
 
     public CredentialController(CredentialService credentialService, NoteService noteService, FileService fileService) {
         this.credentialService = credentialService;
@@ -36,6 +37,7 @@ public class CredentialController {
     public String createOrUpdate(Credential credential, Principal principal, Model model) {
 
         String createOrUpdateError = null;
+        String createOrUpdateSuccess = null;
 
         Optional<Integer> credentialidOptional = Optional.ofNullable(credential.getCredentialid());
 
@@ -43,33 +45,36 @@ public class CredentialController {
             int rowsEdited = credentialService.update(credential, principal.getName());
             if (rowsEdited < 0) {
                 createOrUpdateError = "There was an error editing your credential. Please try again.";
+            } else {
+                createOrUpdateSuccess = "Credential edited successfully.";
             }
         } else {
             int rowsAdded = credentialService.create(credential, principal.getName());
             if (rowsAdded < 0) {
                 createOrUpdateError = "There was an error creating your credential. Please try again.";
+            } else {
+                createOrUpdateSuccess = "Credential created successfully.";
             }
         }
         if (createOrUpdateError == null) {
-            model.addAttribute("signupSuccess", true);
+            model.addAttribute("credentialSuccess", createOrUpdateSuccess);
         } else {
-            model.addAttribute("signupError", createOrUpdateError);
+            model.addAttribute("credentialError", createOrUpdateError);
         }
-        model.addAttribute("files", fileService.getAll(principal.getName()));
-        model.addAttribute("notes", noteService.getAll(principal.getName()));
-        model.addAttribute("credentials", credentialService.getAll(principal.getName()));
+        model = refreshModelAttributes(model, principal);
         model.addAttribute("activeTab", "credential");
         return "home";
     }
 
     @GetMapping("/credential/delete")
     public String deleteNote(@RequestParam("id") int credentialid, Model model, Principal principal) {
-        if (credentialid > 0) {
-            credentialService.delete(credentialid);
+        int rowsDeleted = credentialService.delete(credentialid);
+        if (rowsDeleted > 0) {
+            model.addAttribute("credentialSuccess", "Credential deleted successfully.");
+        } else {
+            model.addAttribute("credentialError", "There was an error deleting your credential. Please try again.");
         }
-        model.addAttribute("files", fileService.getAll(principal.getName()));
-        model.addAttribute("notes", noteService.getAll(principal.getName()));
-        model.addAttribute("credentials", credentialService.getAll(principal.getName()));
+        model = refreshModelAttributes(model, principal);
         model.addAttribute("activeTab", "credential");
         return "home";
     }
@@ -82,6 +87,13 @@ public class CredentialController {
             response.put("decryptedPassword", credentialService.decryptPassword(credentialService.get(credentialid, principal.getName())).getPassword());
         }
         return response;
+    }
+
+    public Model refreshModelAttributes(Model model, Principal principal) {
+        model.addAttribute("files", fileService.getAll(principal.getName()));
+        model.addAttribute("notes", noteService.getAll(principal.getName()));
+        model.addAttribute("credentials", credentialService.getAll(principal.getName()));
+        return model;
     }
 
 }

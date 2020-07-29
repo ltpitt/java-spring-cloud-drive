@@ -24,25 +24,23 @@ import java.security.Principal;
 @Controller
 public class FileController {
 
+    Logger logger = LoggerFactory.getLogger(FileController.class);
+
     private final CredentialService credentialService;
     private final NoteService noteService;
     private final FileService fileService;
-    Logger logger = LoggerFactory.getLogger(FileController.class);
 
     public FileController(CredentialService credentialService, NoteService noteService, FileService fileService) {
-
         this.credentialService = credentialService;
         this.noteService = noteService;
         this.fileService = fileService;
-
     }
 
     @PostMapping("/files/create")
     public String createOrUpdate(MultipartFile fileUpload, Principal principal, Model model) throws IOException {
 
-        logger.info("/files/create now running...");
-
         String createOrUpdateError = null;
+        String createOrUpdateSuccess = null;
 
         if (fileUpload.getSize() > 10485760) {
             createOrUpdateError = "File exceeds the maximum upload size of 10485760 (10 Mb). Please try with a smaller file.";
@@ -55,19 +53,17 @@ public class FileController {
         boolean isFileNameExisting = fileService.getAll(principal.getName()).stream().anyMatch(file -> file.getFilename().equals(fileUpload.getOriginalFilename()));
 
         if (isFileNameExisting) {
-            createOrUpdateError = "File " + fileUpload.getOriginalFilename() + " already exists. Please delete the previous version or upload a different file.";
+            createOrUpdateError = "File " + fileUpload.getOriginalFilename() + " already exists. Please delete it or upload a different file.";
         }
 
         if (createOrUpdateError == null) {
             fileService.create(fileUpload, principal.getName());
-            model.addAttribute("fileSuccess", true);
+            model.addAttribute("fileSuccess", "File uploaded successfully.");
         } else {
             model.addAttribute("fileError", createOrUpdateError);
         }
 
-        model.addAttribute("files", fileService.getAll(principal.getName()));
-        model.addAttribute("notes", noteService.getAll(principal.getName()));
-        model.addAttribute("credentials", credentialService.getAll(principal.getName()));
+        model = refreshModelAttributes(model, principal);
         model.addAttribute("activeTab", "files");
 
         return "home";
@@ -80,9 +76,7 @@ public class FileController {
             fileService.delete(fileid);
         }
 
-        model.addAttribute("files", fileService.getAll(principal.getName()));
-        model.addAttribute("notes", noteService.getAll(principal.getName()));
-        model.addAttribute("credentials", credentialService.getAll(principal.getName()));
+        model = refreshModelAttributes(model, principal);
         model.addAttribute("activeTab", "files");
 
         return "home";
@@ -107,6 +101,13 @@ public class FileController {
             }
         }
 
+    }
+
+    public Model refreshModelAttributes(Model model, Principal principal) {
+        model.addAttribute("files", fileService.getAll(principal.getName()));
+        model.addAttribute("notes", noteService.getAll(principal.getName()));
+        model.addAttribute("credentials", credentialService.getAll(principal.getName()));
+        return model;
     }
 
 }

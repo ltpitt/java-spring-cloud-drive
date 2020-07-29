@@ -14,8 +14,8 @@ import java.security.Principal;
 @RequestMapping("/home")
 public class HomeController {
 
-    public final CredentialService credentialService;
-    public final NoteService noteService;
+    private final CredentialService credentialService;
+    private final NoteService noteService;
     private final FileService fileService;
 
     public HomeController(FileService fileService, NoteService noteService, CredentialService credentialService) {
