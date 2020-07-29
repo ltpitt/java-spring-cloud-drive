@@ -201,17 +201,17 @@
                                 <form method="POST" th:action="@{/credential}">
                                     <input id="credential-id" name="credentialid" type="hidden">
                                     <div class="form-group">
-                                        <label class="col-form-label" for="note-title">URL</label>
+                                        <label class="col-form-label" for="credential-url">URL</label>
                                         <input class="form-control" id="credential-url" maxlength="100" name="url"
                                                required type="text">
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-form-label" for="note-title">Username</label>
+                                        <label class="col-form-label" for="credential-username">Username</label>
                                         <input class="form-control" id="credential-username" maxlength="30"
                                                name="username" required type="text">
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-form-label" for="note-title">Password</label>
+                                        <label class="col-form-label" for="credential-password">Password</label>
                                         <input class="form-control" id="credential-password" maxlength="30"
                                                name="password" required type="text">
                                     </div>
@@ -258,8 +258,8 @@
             // For opening the note modal
             function showNoteModal(noteId, noteTitle, noteDescription) {
                 $('#note-id').val(noteId ? noteId : '');
-                $('#note-title').val(noteTitle ? noteTitle : '');
-                $('#note-description').val(noteDescription ? noteDescription : '');
+                $('#note-title-modal').val(noteTitle ? noteTitle : '');
+                $('#note-description-modal').val(noteDescription ? noteDescription : '');
                 $('#noteModal').modal('show');
             }
 
