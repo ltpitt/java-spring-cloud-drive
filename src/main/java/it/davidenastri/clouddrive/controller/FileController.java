@@ -71,21 +71,19 @@ public class FileController {
 
     @GetMapping("/files/delete")
     public String delete(@RequestParam("id") int fileid, Model model, Principal principal) {
-
-        if (fileid > 0) {
-            fileService.delete(fileid);
+        int rowsDeleted = fileService.delete(fileid);
+        if (rowsDeleted > 0) {
+            model.addAttribute("fileSuccess", "File deleted successfully.");
+        } else {
+            model.addAttribute("fileError", "There was an error deleting your file. Please try again.");
         }
-
         model = refreshModelAttributes(model, principal);
         model.addAttribute("activeTab", "files");
-
         return "home";
-
     }
 
     @GetMapping("/files/get")
-    public void get(@RequestParam("id") int fileid, Model model, Principal principal, HttpServletResponse response) {
-
+    public String get(@RequestParam("id") int fileid, Model model, Principal principal, HttpServletResponse response) {
         if (fileid > 0) {
             File file = fileService.get(fileid, principal.getName());
             try {
@@ -96,11 +94,15 @@ public class FileController {
                 IOUtils.copy(in, out);
                 out.flush();
                 out.close();
+                model.addAttribute("fileSuccess", "File downloaded successfully.");
             } catch (IOException e) {
                 e.printStackTrace();
+                model.addAttribute("fileError", "There was an error downloading your file. Please try again.");
             }
         }
-
+        model = refreshModelAttributes(model, principal);
+        model.addAttribute("activeTab", "files");
+        return "home";
     }
 
     public Model refreshModelAttributes(Model model, Principal principal) {
