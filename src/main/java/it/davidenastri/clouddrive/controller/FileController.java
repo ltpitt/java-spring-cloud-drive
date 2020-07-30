@@ -89,7 +89,7 @@ public class FileController {
             try {
                 response.setHeader("Content-Disposition", "inline;filename=\"" + file.getFilename() + "\"");
                 OutputStream out = response.getOutputStream();
-                response.setContentType(file.getContenttype());
+                response.setContentType("application/octet-stream");
                 InputStream in = new ByteArrayInputStream(file.getFiledata());
                 IOUtils.copy(in, out);
                 out.flush();
