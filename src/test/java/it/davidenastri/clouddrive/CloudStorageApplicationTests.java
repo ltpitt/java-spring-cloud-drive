@@ -16,6 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class CloudStorageApplicationTests {
 
 	public String baseURL;
@@ -45,6 +46,7 @@ class CloudStorageApplicationTests {
 	}
 
 	@Test
+	@Order(1)
 	public void verifyThatUnauthoziedUserCanAccessOnlyLoginAndSignUp() {
 		driver.get(baseURL + "/home");
 		Assertions.assertEquals("Login", driver.getTitle());
@@ -55,9 +57,10 @@ class CloudStorageApplicationTests {
 	}
 
 	@Test
+	@Order(2)
 	public void testUserSignupLoginLogout() throws InterruptedException {
-		String username = "username1";
-		String password = "password1";
+		String username = "username";
+		String password = "password";
 
 		driver.get(baseURL + "/signup");
 		SignUpPage signupPage = new SignUpPage(driver);
@@ -77,15 +80,12 @@ class CloudStorageApplicationTests {
 	}
 
 	@Test
+	@Order(3)
 	public void testNoteCreationAndView() throws InterruptedException {
-		String username = "username2";
-		String password = "password2";
-		String noteTitle = "Note Title 2";
-		String noteDescription = "Note Description 2";
-
-		driver.get(baseURL + "/signup");
-		SignUpPage signupPage = new SignUpPage(driver);
-		signupPage.signUp("User", "2", username, password);
+		String username = "username";
+		String password = "password";
+		String noteTitle = "Note Title";
+		String noteDescription = "Note Description";
 
 		driver.get(baseURL + "/login");
 		LoginPage loginPage = new LoginPage(driver);
@@ -98,20 +98,18 @@ class CloudStorageApplicationTests {
 		homePage.addNewNote(noteTitle, noteDescription, driver);
 		assertEquals(noteTitle, homePage.getFirstNoteTitle(driver));
 		assertEquals(noteDescription, homePage.getFirstNoteDescription(driver));
+		homePage.logout();
 	}
 
 	@Test
+	@Order(4)
 	public void testNoteEdit() throws InterruptedException {
-		String username = "username3";
-		String password = "password3";
-		String noteTitle = "Note Title 3";
-		String noteDescription = "Note Description 3";
-		String editedNoteTitle = "Edited Note Title 3";
-		String editedNoteDescription = "Edited Note Description 3";
-
-		driver.get(baseURL + "/signup");
-		SignUpPage signupPage = new SignUpPage(driver);
-		signupPage.signUp("User", "3", username, password);
+		String username = "username";
+		String password = "password";
+		String noteTitle = "Note Title";
+		String noteDescription = "Note Description";
+		String editedNoteTitle = "Edited Note Title";
+		String editedNoteDescription = "Edited Note Description";
 
 		driver.get(baseURL + "/login");
 		LoginPage loginPage = new LoginPage(driver);
@@ -127,19 +125,16 @@ class CloudStorageApplicationTests {
 
 		assertEquals(editedNoteTitle, homePage.getFirstNoteTitle(driver));
 		assertEquals(editedNoteDescription, homePage.getFirstNoteDescription(driver));
-
+		homePage.logout();
 	}
 
 	@Test
+	@Order(5)
 	public void testNoteDeletion() throws InterruptedException {
-		String username = "username4";
-		String password = "password4";
-		String noteTitle = "Note Title 4";
-		String noteDescription = "Note Description 4";
-
-		driver.get(baseURL + "/signup");
-		SignUpPage signupPage = new SignUpPage(driver);
-		signupPage.signUp("User", "4", username, password);
+		String username = "username";
+		String password = "password";
+		String noteTitle = "Note Title";
+		String noteDescription = "Note Description";
 
 		driver.get(baseURL + "/login");
 		LoginPage loginPage = new LoginPage(driver);
@@ -151,23 +146,20 @@ class CloudStorageApplicationTests {
 		HomePage homePage = new HomePage(driver);
 		homePage.addNewNote(noteTitle, noteDescription, driver);
 
-		assertEquals(2, homePage.getNotesList(driver).size());
+		assertEquals(6, homePage.getNotesList(driver).size());
 		homePage.deleteFirstNote(driver);
-		assertEquals(0, homePage.getNotesList(driver).size());
-
+		assertEquals(4, homePage.getNotesList(driver).size());
+		homePage.logout();
 	}
 
 	@Test
+	@Order(6)
 	public void testCredentialCreationAndView() throws InterruptedException {
-		String username = "username5";
-		String password = "password5";
-		String credentialUrl = "Credential Url 5";
-		String credentialUsername = "Credential Username 5";
-		String credentialPassword = "Credential Password 5";
-
-		driver.get(baseURL + "/signup");
-		SignUpPage signupPage = new SignUpPage(driver);
-		signupPage.signUp("User", "2", username, password);
+		String username = "username";
+		String password = "password";
+		String credentialUrl = "Credential Url";
+		String credentialUsername = "Credential Username";
+		String credentialPassword = "Credential Password";
 
 		driver.get(baseURL + "/login");
 		LoginPage loginPage = new LoginPage(driver);
@@ -181,22 +173,20 @@ class CloudStorageApplicationTests {
 		assertEquals(credentialUrl, homePage.getFirstCredentialUrl(driver));
 		assertEquals(credentialUsername, homePage.getFirstCredentialUsername(driver));
 		assertNotEquals(credentialPassword, homePage.getFirstCredentialPassword(driver));
+		homePage.logout();
 	}
 
 	@Test
+	@Order(7)
 	public void testCredentialEdit() throws InterruptedException {
-		String username = "username6";
-		String password = "password6";
-		String credentialUrl = "Credential Url 6";
-		String credentialUsername = "Credential Username 6";
-		String credentialPassword = "Credential Password 6";
-		String editedCredentialUrl = "Edited Credential Url 6";
-		String editedCredentialUsername = "Edited Credential Username 6";
-		String editedCredentialPassword = "Edited Credential Password 6";
-
-		driver.get(baseURL + "/signup");
-		SignUpPage signupPage = new SignUpPage(driver);
-		signupPage.signUp("User", "2", username, password);
+		String username = "username";
+		String password = "password";
+		String credentialUrl = "Credential Url";
+		String credentialUsername = "Credential Username";
+		String credentialPassword = "Credential Password";
+		String editedCredentialUrl = "Edited Credential Url";
+		String editedCredentialUsername = "Edited Credential Username";
+		String editedCredentialPassword = "Edited Credential Password";
 
 		driver.get(baseURL + "/login");
 		LoginPage loginPage = new LoginPage(driver);
@@ -214,7 +204,6 @@ class CloudStorageApplicationTests {
 		assertNotEquals(editedCredentialPassword, homePage.getFirstCredentialPassword(driver));
 		String clearTextPassword = homePage.getClearTextPassword(driver);
 		assertEquals(editedCredentialPassword, clearTextPassword);
-
 	}
 
 }
