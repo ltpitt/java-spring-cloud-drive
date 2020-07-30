@@ -63,7 +63,7 @@
                     </table>
                 </div>
                 <div class="alert alert-success" id="file-success-msg" th:if="${fileSuccess}">
-                    File uploaded successfully.
+                    <span th:text="${fileSuccess}"></span>
                 </div>
                 <div class="alert alert-danger" id="file-error-msg" th:if="${fileError}">
                     <span th:text="${fileError}"></span>
