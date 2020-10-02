@@ -13,7 +13,7 @@ TODO:
 
 > A Cloud Storage solution, implemented using Java Spring.   
 
-## Overview
+### Overview
 
 It includes three user-facing features:
 
@@ -21,7 +21,7 @@ It includes three user-facing features:
 2. **Note Management:** Add/update/remove text notes
 3. **Password Management:** Save, edit, and delete website credential.  
 
-## Meta
+### Meta
 
 Davide Nastri – d.nastri@gmail.com
 
@@ -29,7 +29,7 @@ Distributed under the MIT license. See ``LICENSE`` for more information.
 
 [Java Spring Cloud Drive](https://github.com/ltpitt/java-spring-cloud-drive)
 
-## Contributing
+### Contributing
 
 1. Fork it (<https://github.com/ltpitt/java-spring-cloud-drive/fork>)
 2. Create your feature branch (`git checkout -b feature/fooBar`)
