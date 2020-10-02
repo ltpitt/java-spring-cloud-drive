@@ -1,4 +1,4 @@
-![Build Status](https://github.com/ltpitt/java-spring-cloud-drive/workflows/Java%20CI%20with%20Maven/badge.svg)
+![build](https://github.com/ltpitt/java-spring-cloud-drive/workflows/build/badge.svg)
 ![Contributions welcome](https://img.shields.io/badge/contributions-welcome-orange.svg)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
