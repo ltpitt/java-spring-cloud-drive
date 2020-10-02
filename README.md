@@ -1,4 +1,15 @@
-![Java CI with Maven](https://github.com/ltpitt/java-spring-cloud-drive/workflows/Java%20CI%20with%20Maven/badge.svg)
+<p align="center"><img src="https://github.com/ltpitt/java-spring-cloud-drive/blob/master/media/logo.png"></p>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+![Java](https://img.shields.io/badge/python-v3.6+-blue.svg)
+![Build Status](https://github.com/ltpitt/java-spring-cloud-drive/workflows/Java%20CI%20with%20Maven/badge.svg)
+![Contributions welcome](https://img.shields.io/badge/contributions-welcome-orange.svg)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+<!-- 
+TODO:
+  - Add Dependency check / status badge
+  - Add GitHub Issues badge similar to: [![GitHub Issues](https://img.shields.io/github/issues/anfederico/Clairvoyant.svg)](https://github.com/anfederico/Clairvoyant/issues)
+-->
 
 # Java Spring Cloud Storage
 A Cloud Storage solution, implemented using Java Spring.   
