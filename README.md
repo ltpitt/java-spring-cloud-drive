@@ -1,3 +1,5 @@
+![Java CI with Maven](https://github.com/ltpitt/java-spring-cloud-drive/workflows/Java CI with Maven/badge.svg)
+
 # Java Spring Cloud Storage
 A Cloud Storage solution, implemented using Java Spring.   
 
