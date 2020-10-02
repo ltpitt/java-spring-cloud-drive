@@ -1,4 +1,4 @@
-<p align="center"><img src="https://github.com/ltpitt/java-spring-cloud-drive/blob/master/media/logo.png"></p>
+<p align="center"><img src="https://github.com/ltpitt/java-spring-cloud-drive/blob/master/media/logo_big.png"></p>
 <br>
 
 ![Build Status](https://github.com/ltpitt/java-spring-cloud-drive/workflows/Java%20CI%20with%20Maven/badge.svg)
@@ -13,10 +13,28 @@ TODO:
 -->
 
 # Java Spring Cloud Storage
-A Cloud Storage solution, implemented using Java Spring.   
+> A Cloud Storage solution, implemented using Java Spring.   
+
+## Overview
 
 It includes three user-facing features:
 
 1. **Simple File Storage:** Upload/download/remove files
 2. **Note Management:** Add/update/remove text notes
 3. **Password Management:** Save, edit, and delete website credential.  
+
+## Meta
+
+Davide Nastri – d.nastri@gmail.com
+
+Distributed under the MIT license. See ``LICENSE`` for more information.
+
+[Java Spring Cloud Drive](https://github.com/ltpitt/java-spring-cloud-drive)
+
+## Contributing
+
+1. Fork it (<https://github.com/ltpitt/java-spring-cloud-drive/fork>)
+2. Create your feature branch (`git checkout -b feature/fooBar`)
+3. Commit your changes (`git commit -am 'Add some fooBar'`)
+4. Push to the branch (`git push origin feature/fooBar`)
+5. Create a new Pull Request
