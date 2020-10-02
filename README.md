@@ -10,6 +10,7 @@ TODO:
 -->
 
 <p align="left"><img src="https://github.com/ltpitt/java-spring-cloud-drive/blob/master/media/logo.png"></p>
+
 > A Cloud Storage solution, implemented using Java Spring.   
 
 ## Overview
