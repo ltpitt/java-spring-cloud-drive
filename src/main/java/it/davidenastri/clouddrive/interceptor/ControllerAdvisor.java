@@ -17,10 +17,11 @@ import java.security.Principal;
 @ControllerAdvice
 public class ControllerAdvisor {
 
+    Logger logger = LoggerFactory.getLogger(ControllerAdvisor.class);
+
     private final CredentialService credentialService;
     private final NoteService noteService;
     private final FileService fileService;
-    Logger logger = LoggerFactory.getLogger(ControllerAdvisor.class);
 
     public ControllerAdvisor(CredentialService credentialService, NoteService noteService, FileService fileService) {
         this.credentialService = credentialService;
