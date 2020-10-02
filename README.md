@@ -1,4 +1,4 @@
-<p align="center"><img src="https://github.com/ltpitt/java-spring-cloud-drive/blob/master/media/logo.png"></p>
+<p align="center"><img src="https://github.com/ltpitt/java-spring-cloud-drive/blob/media/logo.png"></p>
 <br>
 
 ![Build Status](https://github.com/ltpitt/java-spring-cloud-drive/workflows/Java%20CI%20with%20Maven/badge.svg)
