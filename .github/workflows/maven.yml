@@ -2,7 +2,9 @@ name: Java CI with Maven
 
 on:
   push:
-    branches: [ develop ]
+    branches-ignore:
+      - 'master'
+      - 'release*'
 jobs:
   build:
     runs-on: ubuntu-latest
