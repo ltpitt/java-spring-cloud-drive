@@ -2,8 +2,6 @@
 ![Contributions welcome](https://img.shields.io/badge/contributions-welcome-orange.svg)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
-<p align="left"><img src="https://github.com/ltpitt/java-spring-cloud-drive/blob/master/media/logo.png"></p>
-
 <!-- 
 TODO:
   - Add Java version badge
@@ -11,7 +9,7 @@ TODO:
   - Add GitHub Issues badge similar to: [![GitHub Issues](https://img.shields.io/github/issues/anfederico/Clairvoyant.svg)](https://github.com/anfederico/Clairvoyant/issues)
 -->
 
-# Java Spring Cloud Drive
+<p align="left"><img src="https://github.com/ltpitt/java-spring-cloud-drive/blob/master/media/logo.png"></p>
 > A Cloud Storage solution, implemented using Java Spring.   
 
 ## Overview
