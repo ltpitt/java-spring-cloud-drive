@@ -26,12 +26,12 @@ jobs:
           java-version: 1.11
       - name: Run unit tests
         run: mvn test --file pom.xml
-      - name: Coveralls GitHub Action
+      ##- name: Coveralls GitHub Action
         # You may pin to the exact commit or the version.
         # uses: coverallsapp/github-action@8cbef1dea373ebce56de0a14c68d6267baa10b44
-        uses: coverallsapp/github-action@v1.1.2
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+        ##uses: coverallsapp/github-action@v1.1.2
+        ##with:
+          ##github-token: ${{ secrets.GITHUB_TOKEN }}
           # Path to lcov file
           # path-to-lcov: # default is ./coverage/lcov.info
           # Job flag name, e.g. "Unit", "Functional", or "Integration". Will be shown in the Coveralls UI.
