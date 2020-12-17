@@ -1,9 +1,10 @@
 ![build](https://github.com/ltpitt/java-spring-cloud-drive/workflows/build/badge.svg)
 [![GitHub Issues](https://img.shields.io/github/issues-raw/ltpitt/java-spring-cloud-drive)](https://github.com/ltpitt/java-spring-cloud-drive/issues)
-![GitHub commit activity](https://img.shields.io/github/commit-activity/4w/ltpitt/java-spring-cloud-drive?foo=bar)
 ![Total Commits](https://img.shields.io/github/last-commit/ltpitt/java-spring-cloud-drive)
-![Contributions welcome](https://img.shields.io/badge/contributions-welcome-orange.svg)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/4w/ltpitt/java-spring-cloud-drive?foo=bar)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+![Contributions welcome](https://img.shields.io/badge/contributions-welcome-orange.svg)
+
 
 
 <!-- 
@@ -15,7 +16,7 @@ TODO:
 
 <p align="left"><img src="https://github.com/ltpitt/java-spring-cloud-drive/blob/master/media/logo.png"></p>
 
-> A Cloud Storage solution, implemented using Java Spring.   
+> A simple Cloud Storage solution, implemented using Java Spring.   
 
 ### Overview
 
