@@ -1,4 +1,4 @@
-![build](https://github.com/ltpitt/java-spring-cloud-drive/workflows/build/badge.svg)
+[![build](https://github.com/ltpitt/java-spring-cloud-drive/workflows/build/badge.svg)](https://github.com/ltpitt/java-spring-cloud-drive/actions)
 [![GitHub Issues](https://img.shields.io/github/issues-raw/ltpitt/java-spring-cloud-drive)](https://github.com/ltpitt/java-spring-cloud-drive/issues)
 ![Total Commits](https://img.shields.io/github/last-commit/ltpitt/java-spring-cloud-drive)
 ![GitHub commit activity](https://img.shields.io/github/commit-activity/4w/ltpitt/java-spring-cloud-drive?foo=bar)
