@@ -1,8 +1,9 @@
 [![build](https://github.com/ltpitt/java-spring-cloud-drive/workflows/build/badge.svg)](https://github.com/ltpitt/java-spring-cloud-drive/actions)
 [![GitHub Issues](https://img.shields.io/github/issues-raw/ltpitt/java-spring-cloud-drive)](https://github.com/ltpitt/java-spring-cloud-drive/issues)
-![Total Commits](https://img.shields.io/github/last-commit/ltpitt/java-spring-cloud-drive)
-![GitHub commit activity](https://img.shields.io/github/commit-activity/4w/ltpitt/java-spring-cloud-drive?foo=bar)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![build](https://github.com/ltpitt/java-spring-cloud-drive/workflows/build/badge.svg)](https://github.com/ltpitt/java-spring-cloud-drive/actions)
+[![Total Commits](https://img.shields.io/github/last-commit/ltpitt/java-spring-cloud-drive)](https://github.com/ltpitt/java-spring-cloud-drive/commits)
+[![GitHub commit activity](https://img.shields.io/github/commit-activity/4w/ltpitt/java-spring-cloud-drive?foo=bar)](https://github.com/ltpitt/java-spring-cloud-drive/commits)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/ltpitt/java-spring-cloud-drive/blob/master/LICENSE)
 ![Contributions welcome](https://img.shields.io/badge/contributions-welcome-orange.svg)
 
 
