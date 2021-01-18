@@ -1,5 +1,5 @@
 [![build](https://github.com/ltpitt/java-spring-cloud-drive/workflows/build/badge.svg)](https://github.com/ltpitt/java-spring-cloud-drive/actions?query=workflow%3Abuild)
-![CodeQL](https://github.com/ltpitt/java-spring-cloud-drive/workflows/CodeQL/badge.svg)(https://github.com/ltpitt/java-spring-cloud-drive/actions?query=workflow%3ACodeQL)
+[![CodeQL](https://github.com/ltpitt/java-spring-cloud-drive/workflows/CodeQL/badge.svg)](https://github.com/ltpitt/java-spring-cloud-drive/actions?query=workflow%3ACodeQL)
 [![GitHub Issues](https://img.shields.io/github/issues-raw/ltpitt/java-spring-cloud-drive)](https://github.com/ltpitt/java-spring-cloud-drive/issues)
 [![Total Commits](https://img.shields.io/github/last-commit/ltpitt/java-spring-cloud-drive)](https://github.com/ltpitt/java-spring-cloud-drive/commits)
 [![GitHub commit activity](https://img.shields.io/github/commit-activity/4w/ltpitt/java-spring-cloud-drive?foo=bar)](https://github.com/ltpitt/java-spring-cloud-drive/commits)
